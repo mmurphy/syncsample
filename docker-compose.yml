@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  redis:
+    image: redis:2.6
+    ports:
+     - "6379:6379"
+
+  mongodb:
+    image: mongo:2
+    ports:
+     - "27017:27017"
+     - "27018:27018"
+    volumes:
+     - ./data/db:/data/db
+
+  syncserverr:
+    ports:
+     - "3000:3000"
+    image: node:10-alpine
+    command: ["/app/run.sh"]
+    environment:
+     - REDIS_CONNECTION_URL=redis://redis:6379
+     - MONGO_CONNECTION_URL=mongodb://mongodb:27017/sync
+    volumes:
+     - ./server:/app
+
+  webserver:
+    ports:
+     - "8000:8000"
+    image: node:10-alpine
+    volumes:
+     - ./client:/app
+    command: ["sh", "-c", "cd /app && npm install -g http-server && npm install && npm run build && npm run serve"]
+

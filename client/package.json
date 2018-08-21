@@ -1,0 +1,27 @@
+{
+  "name": "syncsample",
+  "version": "1.0.0",
+  "description": "Web Client for the fh-sync sample",
+  "main": "sync.js",
+  "browserify": {
+    "transform": [
+      "browserify-css"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_PATH=./src browserify src/js/sync.js -o dist/bundle.js",
+    "serve": "http-server -p 8000"
+  },
+  "dependencies": {
+    "browserify-css": "^0.11.0",
+    "browserify-shim": "^3.8.14",
+    "fh-sync-js": "1.3.1"
+  },
+  "devDependencies": {
+    "@types/request": "^2.0.0",
+    "browserify": "^14.1.0"
+  },
+  "author": "",
+  "license": "Apache-2.0"
+}
